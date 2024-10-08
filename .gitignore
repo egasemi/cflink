@@ -1,0 +1,9 @@
+# Entorno virtual
+venv/
+
+# Archivos temporales
+*.pyc
+__pycache__/
+
+# Base de datos SQLite
+database.db
