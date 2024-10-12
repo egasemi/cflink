@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener with Authentication</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">URL Shortener</h1>
+
+                <!-- Login Form -->
+                <div id="login-form" class="card p-4 mb-4">
+                    <h2 class="card-title text-center">Login</h2>
+                    <div class="mb-3">
+                        <label for="login-username" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="login-username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login-password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="login-password" name="password" required>
+                    </div>
+                    <button id="login-btn" class="btn btn-primary w-100">Login</button>
+                    <div id="login-error" class="text-danger mt-3"></div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form" class="card p-4 mb-4">
+                    <h2 class="card-title text-center">Register</h2>
+                    <div class="mb-3">
+                        <label for="reg-username" class="form-label">Username:</label>
+                        <input type="text" class="form-control" id="reg-username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg-password" class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="reg-password" name="password" required>
+                    </div>
+                    <button id="register-btn" class="btn btn-success w-100">Register</button>
+                    <div id="register-error" class="text-danger mt-3"></div>
+                </div>
+
+                <!-- URL Shortener Form (visible only after login) -->
+                <div id="shorten-form" class="card p-4 mb-4" style="display:none;">
+                    <h2 class="card-title text-center">Shorten URL</h2>
+                    <div class="mb-3">
+                        <label for="original_url" class="form-label">Enter the URL:</label>
+                        <input type="text" class="form-control" id="original_url" name="original_url" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="custom_slug" class="form-label">Optional: Custom Slug</label>
+                        <input type="text" class="form-control" id="custom_slug" name="custom_slug">
+                    </div>
+                    <button id="shorten-btn" class="btn btn-warning w-100">Shorten URL</button>
+                    <div id="result" class="mt-3"></div>
+                </div>
+
+                <button id="logout-btn" class="btn btn-danger w-100 mt-3" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
