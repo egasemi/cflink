@@ -29,7 +29,7 @@ document.getElementById('login-btn').addEventListener('click', async function ()
     }
 });
 
-document.getElementById('register-btn').addEventListener('click', async function () {
+/* document.getElementById('register-btn').addEventListener('click', async function () {
     const username = document.getElementById('reg-username').value;
     const password = document.getElementById('reg-password').value;
 
@@ -57,7 +57,7 @@ document.getElementById('register-btn').addEventListener('click', async function
     } catch (error) {
         document.getElementById('register-error').innerText = 'Error registering user';
     }
-});
+}); */
 
 document.getElementById('shorten-btn').addEventListener('click', async function () {
     const original_url = document.getElementById('original_url').value;
@@ -98,14 +98,14 @@ document.getElementById('logout-btn').addEventListener('click', function () {
 
 function showShortener() {
     document.getElementById('login-form').style.display = 'none';
-    document.getElementById('register-form').style.display = 'none';
+    //document.getElementById('register-form').style.display = 'none';
     document.getElementById('shorten-form').style.display = 'block';
     document.getElementById('logout-btn').style.display = 'block';
 }
 
 function hideShortener() {
     document.getElementById('login-form').style.display = 'block';
-    document.getElementById('register-form').style.display = 'block';
+    //document.getElementById('register-form').style.display = 'block';
     document.getElementById('shorten-form').style.display = 'none';
     document.getElementById('logout-btn').style.display = 'none';
 }

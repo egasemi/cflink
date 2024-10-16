@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from services.url_service import create_short_url, edit_url, delete_url
 from flask_jwt_extended import jwt_required
 
-bp = Blueprint('urls', __name__, url_prefix='/urls')
+bp = Blueprint('urls', __name__, url_prefix='/api/urls')
 
 @bp.route('/shorten', methods=['POST'])
 @jwt_required()

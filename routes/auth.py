@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from services.auth_service import register_user, login_user
 
-bp = Blueprint('auth', __name__, url_prefix='/auth')
+bp = Blueprint('auth', __name__, url_prefix='/api/auth')
 
 @bp.route('/register', methods=['POST'])
 def register():
