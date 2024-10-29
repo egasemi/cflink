@@ -30,18 +30,19 @@ def serve_static_files(path):
 @app.route('/<short_url>')
 def redirect_to_url(short_url):
     user_agent_string = request.user_agent.string
+    ip_address = request.headers.get('X-Real-IP', request.remote_addr)
     user_agent = parse(user_agent_string)
     browser = (user_agent.browser.family or "Unknown") + ", " + (user_agent.browser.version_string or "Unknown")
     os = (user_agent.os.family or "Unknown") + ", " + (user_agent.os.version_string or "Unknown")
     device = (user_agent.device.family or "Unknown") + ", " + (user_agent.device.brand or "Unknown")
-    referrer = (request.referrer or 'Unknown')
+    referrer = (request.headers.get('Referrer') or 'Unknown')
     db = get_db()
     url = db.execute('SELECT original_url FROM urls WHERE short_url = ?', (short_url,)).fetchone()
     if url:
         db.execute("""
         INSERT INTO link_visits (short_url, original_url, user_agent, ip_address, browser, os, device, referrer)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (short_url, url[0], user_agent_string, request.remote_addr, browser, os, device, referrer))
+    """, (short_url, url[0], user_agent_string, ip_address, browser, os, device, referrer))
 
         db.commit()
         return redirect(url[0])
