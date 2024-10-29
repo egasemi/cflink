@@ -1,4 +1,5 @@
-from flask import Flask, redirect, send_from_directory
+from flask import Flask, redirect, request, send_from_directory
+from user_agents import parse
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from routes import auth, urls
@@ -28,10 +29,21 @@ def serve_static_files(path):
 
 @app.route('/<short_url>')
 def redirect_to_url(short_url):
+    user_agent_string = request.user_agent.string
+    user_agent = parse(user_agent_string)
+    browser = (user_agent.browser.family or "Unknown") + ", " + (user_agent.browser.version_string or "Unknown")
+    os = (user_agent.os.family or "Unknown") + ", " + (user_agent.os.version_string or "Unknown")
+    device = (user_agent.device.family or "Unknown") + ", " + (user_agent.device.brand or "Unknown")
+    referrer = (request.referrer or 'Unknown')
     db = get_db()
     url = db.execute('SELECT original_url FROM urls WHERE short_url = ?', (short_url,)).fetchone()
-
     if url:
+        db.execute("""
+        INSERT INTO link_visits (short_url, original_url, user_agent, ip_address, browser, os, device, referrer)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (short_url, url[0], user_agent_string, request.remote_addr, browser, os, device, referrer))
+
+        db.commit()
         return redirect(url[0])
     else:
         return {'error': 'URL not found'}, 404

@@ -1,5 +1,6 @@
 # Entorno virtual
 venv/
+.env
 
 # Archivos temporales
 *.pyc
@@ -7,3 +8,4 @@ __pycache__/
 
 # Base de datos SQLite
 database.db
+local.db*

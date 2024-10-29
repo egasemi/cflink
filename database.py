@@ -1,10 +1,20 @@
-import sqlite3
-
 from flask import g
+
+from dotenv import load_dotenv
+
+import os
+
+import libsql_experimental as libsql
+
+load_dotenv()
+
+TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL")
+TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN")
+
 
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect('database.db')
+        g.db = libsql.connect("local.db", sync_url=TURSO_DATABASE_URL, auth_token=TURSO_AUTH_TOKEN)
     return g.db
 
 def close_db(e=None):
@@ -37,4 +47,19 @@ def create_tables():
             FOREIGN KEY (user_id) REFERENCES users(id)
         )
     ''')
+    db.execute('''
+        CREATE TABLE IF NOT EXISTS link_visits (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            short_url VARCHAR(255),
+            original_url VARCHAR(255),
+            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            user_agent VARCHAR(255),
+            ip_address VARCHAR(45),
+            browser VARCHAR(255),
+            os VARCHAR(255),
+            device VARCHAR(255),
+            referrer VARCHAR(255)
+        );
+    ''')
     db.commit()
+    db.sync()
