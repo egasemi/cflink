@@ -2,7 +2,7 @@ from flask import Flask, redirect, request, send_from_directory
 from user_agents import parse
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from routes import auth, urls
+from routes import auth, links, urls
 from database import init_db, get_db
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ with app.app_context():
 # Registrar blueprints de las rutas
 app.register_blueprint(auth.bp)
 app.register_blueprint(urls.bp)
+app.register_blueprint(links.bp)
 
 @app.route('/')
 def serve_forntend():
