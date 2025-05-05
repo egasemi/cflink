@@ -46,7 +46,7 @@ def create_tables():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
-            role TEXT NOT NULL DEFAULT 'user' -- 'user' or 'admin'
+            role TEXT NOT NULL DEFAULT 'user'
         )
     ''')
 
@@ -74,4 +74,3 @@ def create_tables():
         );
     ''')
     db.commit()
-    db.sync()
