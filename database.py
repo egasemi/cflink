@@ -14,7 +14,7 @@ TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN")
 
 def get_db():
     if 'db' not in g:
-        try:
+"""         try:
             g.db = libsql.connect(
                 "local.db",
                 sync_url=TURSO_DATABASE_URL,
@@ -22,7 +22,8 @@ def get_db():
             )
         except Exception as e:
             print("⚠️ Error al conectar con Turso, usando solo base local:", e)
-            g.db = libsql.connect("local.db")
+            g.db = libsql.connect("local.db") """
+        g.db = libsql.connect("local.db")
     return g.db
 
 def close_db(e=None):
@@ -32,12 +33,12 @@ def close_db(e=None):
         db.close()
 
 def init_db():
-    db = get_db()
+"""     db = get_db() """
     create_tables()
-    try:
+"""     try:
         db.sync()
     except Exception as e:
-        print("⚠️ No se pudo sincronizar con Turso:", e)
+        print("⚠️ No se pudo sincronizar con Turso:", e) """
 
 def create_tables():
     db = get_db()
